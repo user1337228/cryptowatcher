@@ -12,10 +12,6 @@ import java.time.ZoneId
 @Configuration
 class R2DBCConfig {
 
-  @Bean
-  fun r2dbcTemplate(): R2dbcEntityTemplate {
-    return R2dbcEntityTemplate(connectionFactory())
-  }
 
   @Bean
   fun connectionFactory(): MySqlConnectionFactory {
@@ -25,7 +21,7 @@ class R2DBCConfig {
       .serverZoneId(ZoneId.systemDefault())
       .database("cryptowatch")
       .user("root")
-      .password("xkmjr3m3")
+      .password("security")
       .build()
     )
   }

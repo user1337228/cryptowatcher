@@ -24,7 +24,7 @@ class RouterConfig(
 
   @Bean
   fun apiRouter() = router {
-    accept(MediaType.TEXT_HTML)
+    accept(MediaType.APPLICATION_JSON)
       .nest {
         GET(USERS_MAPPING).invoke { userHandler.getAll(it) }
         GET(CRYPTOS_MAPPING).invoke { cryptocurrencyHandler.getAll(it) }

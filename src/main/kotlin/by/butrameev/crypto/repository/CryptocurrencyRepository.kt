@@ -1,6 +1,7 @@
 package by.butrameev.crypto.repository
 
 import by.butrameev.crypto.entity.Cryptocurrency
+import org.springframework.data.r2dbc.repository.Query
 import org.springframework.data.repository.reactive.ReactiveCrudRepository
 import org.springframework.stereotype.Repository
 import reactor.core.publisher.Flux
@@ -11,6 +12,7 @@ interface CryptocurrencyRepository: ReactiveCrudRepository<Cryptocurrency, Long>
 
   override fun findAll(): Flux<Cryptocurrency>
 
+  @Query("SELECT * FROM cryptocurrency where id = ?")
   override fun findById(id: Long): Mono<Cryptocurrency>
 
   override fun existsById(id: Long): Mono<Boolean>

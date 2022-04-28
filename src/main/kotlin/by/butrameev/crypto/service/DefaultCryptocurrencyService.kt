@@ -22,6 +22,7 @@ class DefaultCryptocurrencyService(
   companion object Converter{
     fun toCryptocurrency(crypto: CoinLoreDto): Cryptocurrency{
       return Cryptocurrency(
+        null,
         crypto.id.toLong(),
         crypto.symbol,
         crypto.price_usd.toDouble(),

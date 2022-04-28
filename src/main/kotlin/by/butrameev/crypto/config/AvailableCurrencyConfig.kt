@@ -21,9 +21,9 @@ class AvailableCurrencyConfig(
       cryptocurrencyRepository.saveAll(
         Flux.fromIterable(
           listOf<Cryptocurrency>(
-            Cryptocurrency(90L, "BTC", null, LocalDate.now()),
-            Cryptocurrency(80L, "ETH", null, LocalDate.now()),
-            Cryptocurrency(48543L, "SOL", null, LocalDate.now())
+            Cryptocurrency(null, 90L, "BTC", null, LocalDate.now()),
+            Cryptocurrency(null,80L, "ETH", null, LocalDate.now()),
+            Cryptocurrency(null,48543L, "SOL", null, LocalDate.now())
           )
         )
       )
