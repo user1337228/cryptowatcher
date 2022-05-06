@@ -1,6 +1,6 @@
 package by.butrameev.crypto.repository
 
-import by.butrameev.crypto.entity.User
+import by.butrameev.crypto.entity.db.User
 import org.reactivestreams.Publisher
 import org.springframework.data.repository.reactive.ReactiveCrudRepository
 import org.springframework.stereotype.Repository

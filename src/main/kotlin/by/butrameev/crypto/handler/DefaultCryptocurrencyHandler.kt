@@ -1,6 +1,6 @@
 package by.butrameev.crypto.handler
 
-import by.butrameev.crypto.entity.Cryptocurrency
+import by.butrameev.crypto.entity.db.Cryptocurrency
 import by.butrameev.crypto.service.DefaultCryptocurrencyService
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse

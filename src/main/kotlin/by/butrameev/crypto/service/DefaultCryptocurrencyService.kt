@@ -1,9 +1,10 @@
 package by.butrameev.crypto.service
 
-import by.butrameev.crypto.entity.CoinLoreDto
-import by.butrameev.crypto.entity.Cryptocurrency
+import by.butrameev.crypto.entity.db.CryptoDynamics
+import by.butrameev.crypto.entity.dto.CoinLoreDto
+import by.butrameev.crypto.entity.db.Cryptocurrency
+import by.butrameev.crypto.repository.CryptoDynamicsRepository
 import by.butrameev.crypto.repository.CryptocurrencyRepository
-import org.springframework.http.MediaType
 import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
@@ -16,17 +17,15 @@ import java.time.LocalDate
 @EnableScheduling
 class DefaultCryptocurrencyService(
   private val cryptocurrencyRepository: CryptocurrencyRepository,
+  private val cryptoDynamicsRepository: CryptoDynamicsRepository,
   private val restTemplate: RestTemplate
 ) {
 
   companion object Converter{
-    fun toCryptocurrency(crypto: CoinLoreDto): Cryptocurrency{
-      return Cryptocurrency(
-        null,
-        crypto.id.toLong(),
-        crypto.symbol,
-        crypto.price_usd.toDouble(),
-        LocalDate.now()
+    fun toCryptocurrency(crypto: CoinLoreDto): Pair<Cryptocurrency, CryptoDynamics> {
+      return Pair(
+        Cryptocurrency(null, crypto.id.toLong(), crypto.symbol),
+        CryptoDynamics(null, crypto.id.toLong(), crypto.priceUsd.toDouble(), LocalDate.now())
       )
     }
   }
@@ -65,10 +64,12 @@ class DefaultCryptocurrencyService(
     return cryptocurrencyRepository.existsById(id)
   }
 
-  private fun updateAllCryptos(vararg cryptos: Cryptocurrency){
+  private fun updateAllCryptos(vararg cryptos:  Pair<Cryptocurrency, CryptoDynamics>){
     val cryptosIterable = Flux.fromArray(cryptos)
-    cryptocurrencyRepository
-      .saveAll(cryptosIterable)
+    cryptosIterable.flatMap { pair ->
+      cryptocurrencyRepository.save(pair.first)
+      cryptoDynamicsRepository.save(pair.second)
+    }
       .subscribe()
   }
 
@@ -82,7 +83,7 @@ class DefaultCryptocurrencyService(
       }
   }
 
-  private fun expandDto(dtos: Array<CoinLoreDto>): CoinLoreDto{
+  private fun expandDto(dtos: Array<CoinLoreDto>): CoinLoreDto {
     return dtos[0]
   }
 }

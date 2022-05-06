@@ -7,7 +7,7 @@ import org.springframework.web.reactive.config.EnableWebFlux
 
 @SpringBootApplication
 @EnableWebFlux
-@RequestMapping("/cryptowhatcher/*")
+@RequestMapping("cryptowhatcher/*")
 class CryptoApplication
 
 fun main(args: Array<String>) {
