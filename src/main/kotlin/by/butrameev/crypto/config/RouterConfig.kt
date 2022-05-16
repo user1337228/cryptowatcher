@@ -7,9 +7,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.ClassPathResource
 import org.springframework.http.MediaType
-import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.reactive.config.EnableWebFlux
-import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.router
 
 @Configuration
@@ -31,13 +29,13 @@ class RouterConfig(
 
   @Bean
   fun apiRouter() = router {
-    accept(MediaType.TEXT_HTML)
+    accept(MediaType.APPLICATION_JSON)
       .nest {
         GET(USERS_MAPPING).invoke { userHandler.getAll(it) }
         GET(CRYPTOS_MAPPING).invoke { cryptocurrencyHandler.getAll(it) }
         GET(ID_USER_MAPPING).invoke { userHandler.getById(it) }
         GET(ID_CRYPTO_MAPPING).invoke { cryptocurrencyHandler.getById(it) }
-        POST(USER_MAPPING).invoke { userHandler.add(it) }
+        PUT(USER_MAPPING).invoke { userHandler.add(it) }
         PUT(CRYPTO_MAPPING).invoke { cryptocurrencyHandler.add(it) }
         DELETE(ID_USER_MAPPING).invoke { userHandler.delete(it) }
         DELETE(ID_CRYPTO_MAPPING).invoke { cryptocurrencyHandler.delete(it) }

@@ -8,14 +8,12 @@ import by.butrameev.crypto.service.DefaultUserService
 import by.butrameev.crypto.util.DefaultTackedCryptoUtil
 import by.butrameev.crypto.util.DefaultUserUtil
 import by.butrameev.crypto.validator.DefaultEmailValidator
+import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
-import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.RequestAttribute
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.body
 import org.springframework.web.reactive.function.server.bodyToMono
-import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @Component
@@ -41,7 +39,7 @@ class DefaultUserHandler(
 
   override fun add(request: ServerRequest): Mono<ServerResponse> {
     val userDto = request.bodyToMono<UserDto>()
-    userDto
+   return userDto
       .filter { emailValidator.isValidString(it.email) } // Валидация email
       .flatMap {dto ->
         userService.isExistByEmail(dto.email) // Проверка на существование email в БД
@@ -56,11 +54,13 @@ class DefaultUserHandler(
             }
             return@flatMap Mono.empty<UserDto>()
           }
-      }.subscribe()
-
-    return ServerResponse
-      .ok()
-      .render("redirect:/index", UserDto())
+      }
+     .flatMap { dto ->
+       ServerResponse
+       .ok()
+       .contentType(MediaType.APPLICATION_JSON)
+       .body(dto, UserDto::class.java)
+     }
   }
 
   override fun delete(request: ServerRequest): Mono<ServerResponse> {
