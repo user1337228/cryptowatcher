@@ -19,4 +19,6 @@ interface UserRepository : ReactiveCrudRepository<User, Long> {
   override fun deleteById(id: Publisher<Long>): Mono<Void>
 
   override fun <S : User> save(entity: S): Mono<S>
+
+  fun existsUserByEmail(email: String): Mono<Boolean>
 }

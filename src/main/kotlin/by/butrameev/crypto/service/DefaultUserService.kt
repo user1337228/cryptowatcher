@@ -35,7 +35,9 @@ class DefaultUserService(
         return@flatMap Mono.empty()
       }
   }
-
+  fun isExistByEmail(email: String): Mono<Boolean>{
+    return userRepository.existsUserByEmail(email)
+  }
   private fun isExist(id: Long): Mono<Boolean> {
     return userRepository.existsById(id)
   }

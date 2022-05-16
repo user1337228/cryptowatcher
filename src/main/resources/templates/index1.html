@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <title>Date Change</title>
+</head>
+<header>
+  <body style="background-color: white ">
+  <nav class="navbar  navbar-dark" style="background-color:black">
+
+
+    <div class="container-fluid" style="height: 70px;">
+      <a class="navbar-brand text-light" href="index.html">
+        CryptoWatcher
+        <script src="https://cdn.lordicon.com/lusqsztk.js"></script>
+        <lord-icon
+            src="https://cdn.lordicon.com/qhviklyi.json"
+            trigger="loop"
+            delay="100"
+            colors="primary:#ffffff,secondary:#e8e230"
+            style="width:40px;height:40px">
+        </lord-icon>
+        <li class="nav dropdown">
+          <a class="nav-link text-light " id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+             aria-expanded="false">Analytics</a>
+          <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown ">
+            <li><a class="dropdown-item bg-dark text-light" href="index2.html">Date</a></li>
+          </ul>
+        </li>
+      </a>
+    </div>
+  </nav>
+  </body>
+</header>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<section>
+  <div class="container-fluid  ">
+    <div class="row align-items-start">
+      <div class="col">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+
+        <div class="text-right mt-1 ">
+          <div class="dropdown show ">
+            <a class="btn btn-secondary dropdown-toggle " href="#" role="button" id="dropdownMenuLink"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Выберите дату
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col text-center ">
+        <label>
+          <select class="selectpicker mt-1 " multiple data-live-search="true">
+            <option>Bitcoin</option>
+            <option>Monero</option>
+            <option>Feathercoin</option>
+            <option>Vertcoin</option>
+            <option>Peercoin</option>
+            <option>Ethereum</option>
+          </select>
+        </label>
+
+        <script type="text/javascript">
+          $(document).ready(function () {
+            $('#example-includeSelectAllOption').multiselect({
+              includeSelectAllOption: true
+            });
+          });
+        </script>
+      </div>
+
+      <div class="col">
+        <div class="text-left mt-1">
+          <button type="button" class="btn btn-primary  ">Показать</button>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <footer class="footer fixed-bottom  bg-dark">
+    <div class="row">
+      <div class="col-12 col-md">
+        <h5 class="text-white bg-dark text-center">CryptoWatcherGroup</h5>
+        <p class="text-white bg-dark text-center">© 2022 . All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+</section>
+</html>

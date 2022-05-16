@@ -22,4 +22,6 @@ interface CryptocurrencyRepository: ReactiveCrudRepository<Cryptocurrency, Long>
   override fun deleteById(id: Long): Mono<Void>
 
   fun findByApisId(apisId: Long): Mono<Cryptocurrency>
+
+  fun existsByApisId(apisId: Long): Mono<Boolean>
 }

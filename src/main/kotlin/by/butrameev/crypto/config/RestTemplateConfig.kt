@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 class RestTemplateConfig {
 
   companion object RequestParams{
-    val TIMEOUT = TimeUnit.SECONDS.toMillis(10L).toInt()
+    val TIMEOUT = TimeUnit.SECONDS.toMillis(10000L).toInt()
   }
 
   @Bean

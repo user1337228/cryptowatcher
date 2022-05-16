@@ -8,7 +8,6 @@ import by.butrameev.crypto.repository.CryptocurrencyRepository
 import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
-import org.springframework.web.client.RestTemplate
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.time.LocalDate
@@ -18,7 +17,7 @@ import java.time.LocalDate
 class DefaultCryptocurrencyService(
   private val cryptocurrencyRepository: CryptocurrencyRepository,
   private val cryptoDynamicsRepository: CryptoDynamicsRepository,
-  private val restTemplate: RestTemplate
+  private val defaultCoinLoreService: DefaultCoinLoreService
 ) {
 
   companion object Converter{
@@ -32,10 +31,6 @@ class DefaultCryptocurrencyService(
 
   object CryptosId {
     val ids = arrayOf(90L, 80L, 48543L, 28L, 5L, 4L, 56821L, 3L)
-  }
-
-  object CoinLore{
-    const val CRYPTO_DATA_BY_ID = "https://api.coinlore.net/api/ticker/?id="
   }
 
   fun findAllCryptos(): Flux<Cryptocurrency> {
@@ -76,14 +71,8 @@ class DefaultCryptocurrencyService(
   @Scheduled(cron = "0 * * * * *")
   fun updateCryptosPrices(){
       for(id in CryptosId.ids){
-        val cryptoDtos = restTemplate.getForObject(CoinLore.CRYPTO_DATA_BY_ID + id,
-          Array<CoinLoreDto>::class.java)
-        val dto = expandDto(cryptoDtos!!)
+        val dto = defaultCoinLoreService.tickById(id)
         updateAllCryptos(toCryptocurrency(dto))
       }
-  }
-
-  private fun expandDto(dtos: Array<CoinLoreDto>): CoinLoreDto {
-    return dtos[0]
   }
 }

@@ -17,21 +17,24 @@ class AvailableCurrencyConfig(
   @Bean
   fun available(): CommandLineRunner {
     return CommandLineRunner {
-      cryptocurrencyRepository.saveAll(
-        Flux.fromIterable(
-          listOf(
-            Cryptocurrency(null, 90L, "BTC"),
-            Cryptocurrency(null,80L, "ETH"),
-            Cryptocurrency(null,48543L, "SOL"),
-            Cryptocurrency(null, 28L, "XMR"),
-            Cryptocurrency(null,5L, "FTC"),
-            Cryptocurrency(null,4L, "PPC"),
-            Cryptocurrency(null,56821L, "ENS"),
-            Cryptocurrency(null,3L, "VTC")
-          )
-        )
-      )
-        .subscribe()
+      initCryptocurrencies()
+        .forEach{cryptocurrency ->
+          cryptocurrencyRepository.existsByApisId(cryptocurrency.apisId)
+            .filter{this.equals(false)}
+            .flatMap { cryptocurrencyRepository.save(cryptocurrency) }
+            .subscribe()
+        }
     }
+  }
+
+  private fun initCryptocurrencies(): List<Cryptocurrency>{
+    return listOf(
+      Cryptocurrency(null, 90L, "BTC"),
+      Cryptocurrency(null,80L, "ETH"),
+      Cryptocurrency(null, 28L, "XMR"),
+      Cryptocurrency(null,5L, "FTC"),
+      Cryptocurrency(null,4L, "PPC"),
+      Cryptocurrency(null,3L, "VTC")
+    )
   }
 }

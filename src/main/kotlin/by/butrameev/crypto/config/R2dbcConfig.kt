@@ -5,6 +5,7 @@ import dev.miku.r2dbc.mysql.MySqlConnectionFactory
 import io.r2dbc.spi.Connection
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.data.r2dbc.core.R2dbcEntityTemplate
 import reactor.core.publisher.Mono
 import java.time.ZoneId
 
@@ -28,5 +29,11 @@ class R2dbcConfig {
   @Bean
   fun databaseClient(connectionFactory: MySqlConnectionFactory): Mono<Connection> {
     return Mono.from(connectionFactory.create())
+  }
+
+
+  @Bean
+  fun r2dbcEntityTemplate(connectionFactory: MySqlConnectionFactory): R2dbcEntityTemplate{
+    return R2dbcEntityTemplate(connectionFactory)
   }
 }

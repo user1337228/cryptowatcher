@@ -2,12 +2,14 @@ package by.butrameev.crypto.handler
 
 import by.butrameev.crypto.entity.db.Cryptocurrency
 import by.butrameev.crypto.service.DefaultCryptocurrencyService
+import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.body
 import org.springframework.web.reactive.function.server.bodyToMono
 import reactor.core.publisher.Mono
 
+@Component
 class DefaultCryptocurrencyHandler(
   private val cryptocurrencyService: DefaultCryptocurrencyService
 ) : Handler {
