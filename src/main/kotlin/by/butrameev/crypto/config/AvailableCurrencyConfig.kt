@@ -6,7 +6,6 @@ import org.springframework.boot.CommandLineRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
-import reactor.core.publisher.Flux
 
 @Configuration
 @ComponentScan("by.butrameev.crypto.repository")
@@ -20,7 +19,7 @@ class AvailableCurrencyConfig(
       initCryptocurrencies()
         .forEach{cryptocurrency ->
           cryptocurrencyRepository.existsByApisId(cryptocurrency.apisId)
-            .filter{this.equals(false)}
+            .filter{it.equals(false)}
             .flatMap { cryptocurrencyRepository.save(cryptocurrency) }
             .subscribe()
         }
